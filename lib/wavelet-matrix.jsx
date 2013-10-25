@@ -8,7 +8,7 @@
 import "bit-vector.jsx";
 import "binary-io.jsx";
 
-mixin _WaveletMatrix.<T>
+__export__ abstract class _WaveletMatrix.<T>
 {
     var _bv : T[];
     var _seps : int[];
@@ -16,7 +16,7 @@ mixin _WaveletMatrix.<T>
     var _bitsize : int;
     var _size : int;
 
-    function constructor ()
+    __noexport__ function constructor ()
     {
         this._range = {} : Map.<int>;
         this._bv = [] : T[];
@@ -284,14 +284,14 @@ mixin _WaveletMatrix.<T>
     abstract function _createBitVector(size : int) : void;
 }
 
-__export__ class ArrayWaveletMatrix implements _WaveletMatrix.<ArrayBitVector>
+__export__ class ArrayWaveletMatrix extends _WaveletMatrix.<ArrayBitVector>
 {
     override function _createBitVector(size : int) : void {
         this._bv.push(new ArrayBitVector());
     }
 }
 
-__export__ class Uint32WaveletMatrix implements _WaveletMatrix.<Uint32BitVector>
+__export__ class Uint32WaveletMatrix extends _WaveletMatrix.<Uint32BitVector>
 {
     override function _createBitVector(size : int) : void {
         this._bv.push(new Uint32BitVector(size));
