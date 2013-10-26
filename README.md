@@ -111,6 +111,10 @@ Return current bit-size setting. Default value is 16.
 Set max character code stored in this matrix. Default value is 65535 (UCS2 character code limit).
 If you use only latin-1, set `256` and save memory.
 
+### function WaveletMatrix.maxCharCode() : int
+
+Return max character code.
+
 ### function WaveletMatrix.clear() : void
 
 Clear matrix.

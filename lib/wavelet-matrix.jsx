@@ -13,7 +13,7 @@ __export__ abstract class _WaveletMatrix.<T>
     var _bv : T[];
     var _seps : int[];
     var _range : Map.<int>;
-    var _bitsize : int;
+    var _maxcharcode : int;
     var _size : int;
 
     __noexport__ function constructor ()
@@ -21,18 +21,23 @@ __export__ abstract class _WaveletMatrix.<T>
         this._range = {} : Map.<int>;
         this._bv = [] : T[];
         this._seps = [] : int[];
-        this._bitsize = 16;
+        this._maxcharcode = 65535;
         this.clear();
     }
 
     function bitsize () : int
     {
-        return this._bitsize;
+        return Math.ceil(Math.log(this._maxcharcode) / Math.LN2);
     }
 
     function setMaxCharCode (charCode : int) : void
     {
-        this._bitsize = Math.ceil(Math.log(charCode) / Math.LN2);
+        this._maxcharcode = charCode;
+    }
+
+    function maxCharCode () : int
+    {
+        return this._maxcharcode;
     }
 
     function clear () : void
@@ -228,7 +233,7 @@ __export__ abstract class _WaveletMatrix.<T>
 
     function dump (output : BinaryOutput) : void
     {
-        output.dump16bitNumber(this._bitsize);
+        output.dump16bitNumber(this._maxcharcode);
         output.dump32bitNumber(this._size);
         for (var i = 0; i < this.bitsize(); i++)
         {
@@ -260,7 +265,7 @@ __export__ abstract class _WaveletMatrix.<T>
     function load (input : BinaryInput) : void
     {
         this.clear();
-        this._bitsize = input.load16bitNumber();
+        this._maxcharcode = input.load16bitNumber();
         this._size = input.load32bitNumber();
         for (var i = 0; i < this.bitsize(); i++)
         {
@@ -284,7 +289,7 @@ __export__ abstract class _WaveletMatrix.<T>
 
     function _uint2bit (c : int, i : int) : boolean
     {
-        return ((c >> (this._bitsize - 1 - i)) & 0x1) == 0x1;
+        return ((c >> (this.bitsize() - 1 - i)) & 0x1) == 0x1;
     }
 
     function _shallow_copy (input : Map.<int>) : Map.<int>
