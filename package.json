@@ -1,6 +1,6 @@
 {
   "name": "wavelet-matrix.jsx",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "WaveletMatrix implementation for JS/JSX/AMD/CommonJS",
   "scripts": {
     "build": "grunt build",
@@ -38,6 +38,10 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt": "~0.4.1",
     "grunt-jsx": ">=0.1.5",
+    "binary-io.jsx": "~0.2.1",
+    "bit-vector.jsx": "~0.2.2"
+  },
+  "peerDependencies": {
     "binary-io.jsx": "~0.2.1",
     "bit-vector.jsx": "~0.2.2"
   },
