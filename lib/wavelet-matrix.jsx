@@ -89,10 +89,11 @@ __export__ abstract class _WaveletMatrix.<T>
             this._range = {} : Map.<int>;
             var pos0 = 0;
             var pos1 = this._seps[depth];
-            for (var range_rev_key in range_rev)
+            var keys = this._sortKeys(range_rev);
+            for (var i = 0; i < keys.length; i++)
             {
-                var begin = range_rev_key as int;
-                var value = range_rev[range_rev_key];
+                var begin = keys[i];
+                var value = range_rev[begin as string];
                 var end = range_tmp[value as string];
                 var num0  = this._bv[depth].rank0(end) -
                             this._bv[depth].rank0(begin);
@@ -110,6 +111,20 @@ __export__ abstract class _WaveletMatrix.<T>
             }
             depth++;
         }
+    }
+
+    function _sortKeys (map : Map.<int>) : int[]
+    {
+        var keys = [] : int[];
+        for (var key in map)
+        {
+            if (map.hasOwnProperty(key))
+            {
+                keys.push(key as int);
+            }
+        }
+        keys.sort((a, b) -> { return a - b; });
+        return keys;
     }
 
     function size () : int
