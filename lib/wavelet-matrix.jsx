@@ -14,6 +14,8 @@ __export__ abstract class _WaveletMatrix.<T>
     var _seps : int[];
     var _range : Map.<int>;
     var _maxcharcode : int;
+    var _bitsize : int;
+    var _usedChars : Map.<boolean>;
     var _size : int;
 
     __noexport__ function constructor ()
@@ -22,22 +24,38 @@ __export__ abstract class _WaveletMatrix.<T>
         this._bv = [] : T[];
         this._seps = [] : int[];
         this._maxcharcode = 65535;
+        this._bitsize = 16;
+        this._usedChars = {} : Map.<boolean>;
         this.clear();
     }
 
     function bitsize () : int
     {
-        return Math.ceil(Math.log(this._maxcharcode) / Math.LN2);
+        return this._bitsize;
     }
 
     function setMaxCharCode (charCode : int) : void
     {
         this._maxcharcode = charCode;
+        this._bitsize = Math.ceil(Math.log(this._maxcharcode) / Math.LN2);
     }
 
     function maxCharCode () : int
     {
         return this._maxcharcode;
+    }
+
+    function usedChars () : int[]
+    {
+        var chars = [] : int[];
+        for (var charCode in this._usedChars)
+        {
+            if (this._usedChars.hasOwnProperty(charCode))
+            {
+                chars.push(charCode as int);
+            }
+        }
+        return chars;
     }
 
     function clear () : void
@@ -60,7 +78,9 @@ __export__ abstract class _WaveletMatrix.<T>
         this._size = size;
         for (var i = 0; i < size; i++)
         {
-            this._bv[0].set(i, this._uint2bit(v.charCodeAt(i), 0));
+            var charCode = v.charCodeAt(i);
+            this._bv[0].set(i, this._uint2bit(charCode, 0));
+            this._usedChars[charCode as string] = true;
         }
         this._bv[0].build();
         this._seps[0] = this._bv[0].size0();
@@ -234,6 +254,7 @@ __export__ abstract class _WaveletMatrix.<T>
     function dump (output : BinaryOutput) : void
     {
         output.dump16bitNumber(this._maxcharcode);
+        output.dump16bitNumber(this._bitsize);
         output.dump32bitNumber(this._size);
         for (var i = 0; i < this.bitsize(); i++)
         {
@@ -266,6 +287,7 @@ __export__ abstract class _WaveletMatrix.<T>
     {
         this.clear();
         this._maxcharcode = input.load16bitNumber();
+        this._bitsize = input.load16bitNumber();
         this._size = input.load32bitNumber();
         for (var i = 0; i < this.bitsize(); i++)
         {
