@@ -8,9 +8,9 @@
 import "bit-vector.jsx";
 import "binary-io.jsx";
 
-__export__ abstract class _WaveletMatrix.<T>
+__export__ class WaveletMatrix
 {
-    var _bv : T[];
+    var _bv : BitVector[];
     var _seps : int[];
     var _range : Map.<int>;
     var _maxcharcode : int;
@@ -18,10 +18,10 @@ __export__ abstract class _WaveletMatrix.<T>
     var _usedChars : Map.<boolean>;
     var _size : int;
 
-    __noexport__ function constructor ()
+    function constructor ()
     {
         this._range = {} : Map.<int>;
-        this._bv = [] : T[];
+        this._bv = [] : BitVector[];
         this._seps = [] : int[];
         this._maxcharcode = 65535;
         this._bitsize = 16;
@@ -72,7 +72,7 @@ __export__ abstract class _WaveletMatrix.<T>
         var bitsize = this.bitsize();
         for (var i = 0; i < bitsize; i++)
         {
-            this._createBitVector(size);
+            this._bv.push(BitVector.create(size));
             this._seps.push(0);
         }
         this._size = size;
@@ -291,9 +291,7 @@ __export__ abstract class _WaveletMatrix.<T>
         this._size = input.load32bitNumber();
         for (var i = 0; i < this.bitsize(); i++)
         {
-            this._createBitVector(this._size);
-            var bit_vector = this._bv[this._bv.length - 1];
-            bit_vector.load(input);
+            this._bv.push(BitVector.load(input));
         }
         for (var i = 0; i < this.bitsize(); i++)
         {
@@ -322,20 +320,5 @@ __export__ abstract class _WaveletMatrix.<T>
             result[key] = input[key];
         }
         return result;
-    }
-    abstract function _createBitVector(size : int) : void;
-}
-
-__export__ class ArrayWaveletMatrix extends _WaveletMatrix.<ArrayBitVector>
-{
-    override function _createBitVector(size : int) : void {
-        this._bv.push(new ArrayBitVector());
-    }
-}
-
-__export__ class Uint32WaveletMatrix extends _WaveletMatrix.<Uint32BitVector>
-{
-    override function _createBitVector(size : int) : void {
-        this._bv.push(new Uint32BitVector(size));
     }
 }

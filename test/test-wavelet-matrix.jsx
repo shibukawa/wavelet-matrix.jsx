@@ -12,7 +12,7 @@ import "binary-io.jsx";
 class _Test extends TestCase
 {
     var test_src : string;
-    var wm : ArrayWaveletMatrix;
+    var wm : WaveletMatrix;
     var rd : int[][];
     var sd : int[][];
     var td : int[][];
@@ -20,7 +20,7 @@ class _Test extends TestCase
     override function setUp () : void
     {
         this.test_src = "abracadabra mississippi";
-        this.wm = new ArrayWaveletMatrix();
+        this.wm = new WaveletMatrix();
         this.wm.build(this.test_src);
         this.rd = [] : int[][];
         this.sd = [] : int[][];

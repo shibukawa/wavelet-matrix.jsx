@@ -1,6 +1,6 @@
 {
   "name": "wavelet-matrix.jsx",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "WaveletMatrix implementation for JS/JSX/AMD/CommonJS",
   "scripts": {
     "build": "grunt build",
@@ -39,11 +39,12 @@
     "grunt": "~0.4.1",
     "grunt-jsx": ">=0.1.5",
     "binary-io.jsx": "~0.2.1",
-    "bit-vector.jsx": "~0.2.2"
+    "bit-vector.jsx": "~0.3.1",
+    "binary-support.jsx": "~0.1.0"
   },
   "peerDependencies": {
     "binary-io.jsx": "~0.2.1",
-    "bit-vector.jsx": "~0.2.2"
+    "bit-vector.jsx": "~0.3.1"
   },
   "author": "shibukawa",
   "license": "MIT"
