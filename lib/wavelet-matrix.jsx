@@ -79,7 +79,7 @@ __export__ class WaveletMatrix
         for (var i = 0; i < size; i++)
         {
             var charCode = v.charCodeAt(i);
-            this._bv[0].set(i, this._uint2bit(charCode, 0));
+            this._uint2bit(charCode, 0) ?  this._bv[0].set1(i) : this._bv[0].set0(i);
             this._usedChars[charCode as string] = true;
         }
         this._bv[0].build();
@@ -96,7 +96,7 @@ __export__ class WaveletMatrix
                 var code = v.charCodeAt(i);
                 var bit = this._uint2bit(code, depth);
                 var key = code >>> (bitsize - depth);
-                this._bv[depth].set(range_tmp[key as string], bit);
+                bit ? this._bv[depth].set1(range_tmp[key as string]) : this._bv[depth].set0(range_tmp[key as string]);
                 range_tmp[key as string]++;
             }
             this._bv[depth].build();

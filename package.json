@@ -1,6 +1,6 @@
 {
   "name": "wavelet-matrix.jsx",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "WaveletMatrix implementation for JS/JSX/AMD/CommonJS",
   "scripts": {
     "build": "grunt build",

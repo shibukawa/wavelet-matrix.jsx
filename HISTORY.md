@@ -1,6 +1,10 @@
 Change History
 =================
 
+## 0.2.2 (2013/11/05)
+
+* Optimize build()
+
 ## 0.2.1 (2013/11/05)
 
 * Optimize rank()
