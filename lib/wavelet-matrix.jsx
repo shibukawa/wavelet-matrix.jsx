@@ -173,7 +173,7 @@ __export__ class WaveletMatrix
         while (depth < this.bitsize())
         {
             var bit = this._bv[depth].get(i);
-            i = this._bv[depth].rank(i, bit);
+            i = bit ? this._bv[depth].rank1(i) : this._bv[depth].rank0(i);
             value <<= 1;
             if (bit)
             {
@@ -206,7 +206,7 @@ __export__ class WaveletMatrix
         while (depth < this.bitsize())
         {
             var bit = this._uint2bit(c, depth);
-            end = this._bv[depth].rank(end, bit);
+            end = bit ? this._bv[depth].rank1(end) : this._bv[depth].rank0(end);
             if (bit)
             {
                 end += this._seps[depth];
