@@ -1,6 +1,8 @@
 wavelet-matrix.jsx
 ===========================================
 
+[![Build Status](https://travis-ci.org/shibukawa/wavelet-matrix.jsx.png)](https://travis-ci.org/shibukawa/wavelet-matrix.jsx)
+
 Synopsis
 ---------------
 
@@ -79,6 +81,25 @@ Installation
 ```sh
 $ npm install wavelet-matrix.jsx
 ```
+
+If you want to use this library from other JSX project, install like the following:
+
+```sh
+$ npm install wavelet-matrix.jsx --save-dev
+```
+
+or add like these lines to your parent project's `package.json`:
+
+```js
+   devDependencies: {
+       "wavelet-matrix.jsx": "~0.3.0"
+   },
+   peerDepenencies: {
+       "wavelet-matirx.jsx": "~0.3.0"
+   }
+```
+
+And add `node_modules/wavelet-matrix.jsx/src` as a search path. You should add `peerDepenencies` if your product is library.
 
 API Reference
 ------------------

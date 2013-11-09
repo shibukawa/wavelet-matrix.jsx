@@ -1,6 +1,10 @@
 Change History
 =================
 
+## 0.3.0 (2013/11/09)
+
+* Restructure folder structure
+
 ## 0.2.2 (2013/11/05)
 
 * Optimize build()
